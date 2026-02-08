@@ -1,0 +1,54 @@
+Dashboard Interativo com Dados Atualizados
+
+💰 Criptomoedas
+Usar a API do CoinGecko para mostrar preços, variação e gráficos de moedas digitais
+
+
+✅ - Funcionalidades mínimas (o básico que o projeto deve ter)
+
+    Página inicial com uma lista de itens e campo de busca
+    Página de detalhes (ex: detalhes de um país, moeda ou missão espacial)
+    Gráficos simples (usando bibliotecas como Chart.js ou Recharts)
+    Filtros (por país, data, tipo, categoria, etc.)
+    Mensagem de carregamento enquanto os dados vêm da API
+    Tratamento de erro caso a API falhe
+    Layout responsivo (funcionar bem no celular e no computador)
+
+
+O fluxo deixaria de ser uma linha simples e passaria a ter um "cérebro" no meio:
+
+    Front-end (React): Pede o histórico do Bitcoin dos últimos 7 dias.
+
+    Back-end (FastAPI): Recebe o pedido, checa se tem no cache. Se não, busca no CoinGecko.
+
+    Processamento (Pandas): O Python formata os números (ex: arredonda para 2 casas decimais, calcula a média móvel).
+
+    Resposta: O Front-end recebe um JSON "mastigado" e só renderiza no gráfico.
+
+
+1. O que colocar nos "Quadradinhos" (Cards de Resumo)
+Nome e Símbolo: Ex: Bitcoin (BTC).
+
+Preço Atual: Em dólar ()ouReal(R).
+
+Variação de 24h: A porcentagem de quanto subiu ou desceu (Geralmente verde se for +, vermelho se for −).
+
+Mini Gráfico (Sparkline): Uma linha bem pequena e simples mostrando a tendência das últimas horas.
+
+
+
+2. O que colocar na Página de Detalhes
+
+Quando o usuário clica em uma moeda, ele quer ver os dados "pesados":
+
+Market Cap (Capitalização de Mercado): O valor total de todas as moedas em circulação.
+
+Volume (24h): Quanto dinheiro foi trocado dessa moeda nas últimas 24 horas.
+
+Máxima e Mínima (24h): O preço mais alto e o mais baixo do dia.
+
+Gráfico Principal: Um gráfico grande onde ele possa alternar entre ver o preço de 1 dia, 1 semana ou 1 mês.
+
+
+
+
