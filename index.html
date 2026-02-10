@@ -92,19 +92,27 @@
                 </div>
             </div>
 
-            <div id="graficos">
-               <canvas>
-                graficos
+            <div id="container-grafico">
+               <canvas id="grafico">
                </canvas>
-
             </div>
 
             <div id="mercado">
-                <table>
+                <table id="tabela">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Moeda</th>
+                            <th>Preço</th>
+                            <th>24h %</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lista-moedas">
 
+                    </tbody>
                 </table>
-
             </div>
+            
         </main>
 
         <!--sidebar-direita-->
@@ -133,6 +141,7 @@
         </aside>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="Js/script.js"></script>
     
 </body>

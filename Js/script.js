@@ -20,8 +20,9 @@ const solVariacao = document.getElementById('sol-variacao')
 
 
 //Variaveis dos graficos e lista//
-const grafico = document.getElementById('graficos')
-const lista = document.getElementById('mercado')
+const grafico = document.getElementById('grafico')
+const lista = document.getElementById('tabela')
+
 
 //Variaveis de infos rapidas//
 const criptMercado = document.getElementById('total-balance')
@@ -64,9 +65,88 @@ async function atualizarDashboard() {
 atualizarDashboard();
 
 
+async function renderizarGrafico() {
+    const coinId = 'bitcoin';
+    const currency = 'BRL';
+    const days = '7';
+
+    try {
+        const response = await fetch(`https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=${currency}&days=${days}`);
+        const data = await response.json();
+
+        const labels = data.prices.map(p => new Date(p[0]).toLocaleDateString());
+        const prices = data.prices.map(p => p[1]);
+
+        const ctx = document.getElementById('grafico').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: `Preço de ${coinId.toUpperCase()} (Últimos ${days} dias)`,
+                    data: prices,
+                    borderColor: '#f39c12',
+                    backgroundColor: 'rgba(243, 156, 18, 0.1)',
+                    fill: true,
+                    tension: 0.3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { 
+                        beginAtZero: false }
+                   }
+            },
+            plugins: {
+                legend: {
+                    display: true
+                }
+            }
+        });
+    } catch (error) {
+        console.error("Erro ao buscar dados:", error);
+    }
+}
+
+renderizarGrafico();
 
 
+async function carregarTabelaMercado() {
+    try {
+        const response = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=brl&order=market_cap_desc&per_page=10&page=1&sparkline=false');
+        const moedas = await response.json();
 
+        const tabelaBody = document.getElementById('lista-moedas');
+        tabelaBody.innerHTML = '';
 
+        moedas.forEach((moeda, index) => {
+
+            const corVariacao = moeda.price_change_percentage_24h >= 0 ? '#00ff88' : '#ff4d4d';
+
+            const linha = `
+            <tr>
+                <td>${index + 1}</td>
+                <td>
+                   <div style="display: flex; align-items: center; gap: 10px;">
+                        <img src="${moeda.image}" width="20" height="20">
+                        <span>${moeda.name} <strong>(${moeda.symbol.toUpperCase()})</strong></span>
+                   </div>   
+                </td>
+                <td>${moeda.current_price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL'})}</td>
+                <td style="color: ${corVariacao}">
+                    ${moeda.price_change_percentage_24h.toFixed(2)}%
+                </td>
+            </tr> 
+          `;
+          tabelaBody.innerHTML += linha;                       
+        });
+    } catch (error) {
+        console.error("Erro ao carregar tabela:" , error)
+    }
+}
+
+carregarTabelaMercado()
 
 

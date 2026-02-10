@@ -153,14 +153,14 @@ body {
         }
     }
 
-    #graficos {
+    #container-grafico {
         border-radius: 15px;
         width: 100%;
         height: 180px;
         margin-top: 20px;
         background-color: #0d121c;
     
-    }
+}
 
     #mercado{
         border-radius: 15px;
@@ -168,6 +168,37 @@ body {
         height: 160px;
         margin-top: 15px;
         background-color: #0d121c;
+        overflow-y: auto;     /* Adiciona scroll vertical se a tabela crescer */
+        overflow-x: hidden;
+        padding: 20px; 
+        padding-top: 0;          /* Cria o respiro em todos os lados */
+        box-sizing: border-box;
+        
+        #tabela {
+           width: 100%;
+           border-collapse: collapse;
+           color: white;
+           table-layout: fixed; 
+}
+
+            #tabela th, #tabela td {
+                padding: 15px 10px;
+                text-align: left;
+                border-bottom: 1px solid #1d212b;
+                white-space: nowrap; 
+                overflow: hidden;
+                text-overflow: ellipsis;
+}
+            #tabela th:last-child, 
+            #tabela td:last-child 
+            {
+            text-align: right;
+}
+
+            #tabela th:nth-child(1) { width: 10%; } /* # */
+            #tabela th:nth-child(2) { width: 40%; } /* Moeda */
+            #tabela th:nth-child(3) { width: 25%; } /* Preço */
+            #tabela th:nth-child(4) { width: 25%; } /* 24h % */
     }
 }
 
