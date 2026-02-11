@@ -28,12 +28,12 @@ Um dashboard interativo para monitoramento de criptomoedas em tempo real, consum
 Clone o repositório:
 Bash
 
-    git clone https://github.com/seu-usuario/nome-do-repositorio.git
+    git clone(https://github.com/lari-pnj/Dashboard-de-Cripto-Interativo)
 
 Acesse a pasta do projeto:
 Bash
 
-    cd nome-do-repositorio
+    cd (https://github.com/lari-pnj/Dashboard-de-Cripto-Interativo)
 
     Abra o arquivo principal: Basta abrir o index.html no seu navegador ou utilizar a extensão Live Server no VS Code.
 
