@@ -18,18 +18,19 @@ const solImg = document.getElementById('sol-img')
 const solVariacao = document.getElementById('sol-variacao')
 
 
-
 //Variaveis dos graficos e lista//
 const grafico = document.getElementById('grafico')
 const lista = document.getElementById('tabela')
 
 
 //Variaveis de infos rapidas//
-const criptMercado = document.getElementById('total-balance')
+const total = document.getElementById('total-balance')
 const mov24h = document.getElementById('atividade')
 const emAlta = document.getElementById('em-alta')
 
 
+
+// funcão papa atualizar as moedas principais
 async function atualizarDashboard() {
     try {
         const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=brl&ids=bitcoin,ethereum,solana&order=market_cap_desc&sparkline=true&x_cg_demo_api_key=${apiKey}`;
@@ -61,10 +62,9 @@ async function atualizarDashboard() {
         console.error('Erro ao buscar dados:', erro);
     }
 }
-
 atualizarDashboard();
 
-
+//funcão para renderizar o grafico
 async function renderizarGrafico() {
     const coinId = 'bitcoin';
     const currency = 'BRL';
@@ -109,10 +109,9 @@ async function renderizarGrafico() {
         console.error("Erro ao buscar dados:", error);
     }
 }
-
 renderizarGrafico();
 
-
+//função para carregar a tabela das top 10 moedas
 async function carregarTabelaMercado() {
     try {
         const response = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=brl&order=market_cap_desc&per_page=10&page=1&sparkline=false');
@@ -146,7 +145,52 @@ async function carregarTabelaMercado() {
         console.error("Erro ao carregar tabela:" , error)
     }
 }
-
 carregarTabelaMercado()
 
 
+// função sidebar direita
+
+async function atualizarDadosMercado() {
+    try {
+        // Dados Globais
+        const resGlobal = await fetch('https://api.coingecko.com/api/v3/global');
+        const dadosGlobal = await resGlobal.json();
+        const global = dadosGlobal.data;
+
+        const formatarMoeda = (valor) => 
+            valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
+
+        // Preenchendo Total Market Cap
+        document.getElementById('total-balance').innerHTML = `
+            <i class="fa-solid fa-chart-line"></i>
+            <p>Valor Total Mercado</p>
+            <strong>${formatarMoeda(global.total_market_cap.brl)}</strong>
+        `;
+
+        // Preenchendo Volume 24h
+        document.getElementById('atividade').innerHTML = `
+            <i class="fa-solid fa-arrow-right-arrow-left"></i>
+            <p>Movimentação 24h</p>
+            <strong>${formatarMoeda(global.total_volume.brl)}</strong>
+        `;
+
+        // Moedas em Alta (Trending)
+        const resTrending = await fetch('https://api.coingecko.com/api/v3/search/trending');
+        const dadosTrending = await resTrending.json();
+        
+        // Gera tags para as 3 primeiras moedas
+        const tags = dadosTrending.coins.slice(0, 3).map(c => 
+            `<span class="tag-moeda">${c.item.symbol}</span>`
+        ).join('');
+
+        document.getElementById('em-alta').innerHTML = `
+            <i class="fa-solid fa-fire"></i>
+            <p>Moedas Bombando</p>
+            <div style="margin-top:10px">${tags}</div>
+        `;
+
+    } catch (erro) {
+        console.error("Erro na API:", erro);
+    }
+}
+atualizarDadosMercado();

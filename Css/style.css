@@ -113,7 +113,9 @@ body {
                 transform: scale(1.1);
                 border-bottom: 1px solid #007bff;
             }
-         }    
+         }  
+          
+    
     }
 }
 
@@ -150,7 +152,35 @@ body {
          border-radius: 10px;
          margin: auto;
          background-color: #0d121c;
+         display: flex;
+         flex-direction: column;
+         justify-content: center;
+         align-items: center;
+         border-bottom: 3px solid #3b82f6;
+         transition: transform 0.3s;
+
+         &:hover {
+            transform: scale(1.02);
+         }
+
+         i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+         }
+
+         p {
+            margin: 0; color: #8a92a3; 
+            font-size: 0.9rem;
+         }
+         strong { 
+            font-size: 1.4rem; 
+            margin-top: 5px; 
         }
+      
+          #btc i { color: #f7931a; }
+          #eth i { color: #627eea; }
+          #sol i { color: #14f195; }
+       }  
     }
 
     #container-grafico {
@@ -250,26 +280,55 @@ body {
         }
     }
 
-    #total-balance {
+    #total-balance, #atividade, #em-alta {
         width: 100%;
         height: 170px;
         border-radius: 10px;
         background-color: #0d121c;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 20px;
+        box-sizing: border-box;
+        color: white;
+        border-left: 4px solid #004aaf;
+        transition: transform 0.3s ease;
+
+        &:hover {
+            transform: translateY(-5px);
+            background-color: #161d2b;
+        }
+        i {
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+            color: #007bff;
+        }
+        p {
+            margin: 0;
+            font-size: 0.8rem;
+            color: #8a92a3;
+            text-transform: uppercase;
+        }
+
+        strong {
+            font-size: 1.3rem;
+            margin-top: 8px;
+            word-break: break-all;
+        }
+    }
+    #total-balance { height: 170px; border-left-color: #00ff88; }
+    #atividade { height: 150px; border-left-color: #004aaf; }
+    #em-alta { height: 170px; border-left-color: #ff9d00; }
+
+    .tag-moeda {
+        background: #1a2233;
+        padding: 5px 10px;
+        border-radius: 6px;
+        margin-right: 8px;
+        font-size: 0.9rem;
+        border: 1px solid #2d3748;
     }
 
-    #atividade {
-        width: 100%;
-        height: 150px;
-        border-radius: 10px;
-        background-color: #0d121c;
-    }
-
-    #em-alta {
-        width: 100%;
-        height: 170px;
-        border-radius: 10px;
-        background-color: #0d121c;
-    }
 }
 
 .icon {
