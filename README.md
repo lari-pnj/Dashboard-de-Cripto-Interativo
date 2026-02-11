@@ -52,4 +52,3 @@ Neste projeto, pude aprofundar meus conhecimentos em:
 Este projeto está sob a licença MIT. Consulte o arquivo LICENSE para mais detalhes.
 
 Feito com ☕ por Larissa valleriano
-Dicas extras para o seu repositório:
